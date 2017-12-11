@@ -9,11 +9,11 @@
             [#end LIST_TERMINAL#]
         </select>
 	</div>
-</div>		
+</div>
 </form>
 <p>
-<a href="?view_mode=edit_stations" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Добавить станцию</a>
-<a href="?view_mode=import_stations" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Импортировать списком</a>
+<a href="?view_mode=edit_stations" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Добавить</a>
+<a href="?view_mode=import_stations" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Импорт</a>
 </p>
 
 <!-- table список станций  -->
@@ -25,20 +25,20 @@
 
 <tr>
  <td height=1 align=center>
-   ID 
+   ID
  </td>
  <td height=10 align=center>
-   Название 
+   Название
  </td>
  <td align=center>
    URL станции
  </td>
  [#if "<#ACTION#>"=="admin"#]
   <td width="1%">
-    
-  </td> 
+
+  </td>
   <td width="1%">
-    
+
   </td>
  [#endif ACTION#]
 </tr>
@@ -46,10 +46,10 @@
 [#begin RESULT#]
 <tr>
  <td height=1 align=center>
-   [#ID#] 
+   [#ID#]
  </td>
  <td height=10 align=center>
-   [#name#] 
+   [#name#]
  </td>
  <td align=center>
    [#stations#]
@@ -57,7 +57,7 @@
  [#if "<#ACTION#>"=="admin"#]
   <td width="1%">
    <a href="?view_mode=edit_stations&id=[#ID#]"  title="<#LANG_EDIT#>"><span class="glyphicon glyphicon-pencil"></span></a>
-  </td> 
+  </td>
   <td width="1%">
    <a href="?view_mode=delete_stations&id=[#ID#]" onClick="return confirm('<#LANG_ARE_YOU_SURE#>')" title="<#LANG_DELETE#>"><span class="glyphicon glyphicon-remove"></span></a>
   </td>
@@ -100,7 +100,7 @@ XBMC, VLC over HTTP, MPD.
 <b>cm('RadioSetting.Control','sta:val');</b> или <b>cm('RadioSetting.Control',array('sta'=>'val');</b> - переключает станцию на <b>val</b>, где <b>val</b> ID или название станции.
 <br>
 Соответственно:<br>
-<b>cm('RadioSetting.Control',array('sta'=>'Зайцев.FM','cmd'=>'play','vol'=>30));</b> 
+<b>cm('RadioSetting.Control',array('sta'=>'Зайцев.FM','cmd'=>'play','vol'=>30));</b>
 <br>или
 <br>
 <b>cm('RadioSetting.Control','sta:Зайцев.FM');</b>
