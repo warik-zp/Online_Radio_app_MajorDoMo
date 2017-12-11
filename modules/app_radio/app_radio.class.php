@@ -6,7 +6,7 @@
 * module for MajorDoMo project
 * @author Fedorov Ivan <4fedorov@gmail.com>
 * @copyright Fedorov I.A.
-* @version 1.3.1 October 2014
+* @version 1.3.2 October 2014
 */
 
 class app_radio extends module {
