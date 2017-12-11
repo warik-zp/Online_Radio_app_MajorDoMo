@@ -1,16 +1,3 @@
-<form action="?" method="get" class="form-horizontal" name="terminal_change">
-<div class="form-group">
-	<label for="playTerminal" class="col-sm-4 control-label">Проигрывать на терминале:</label>
-	<div class="col-sm-5">
-		<select name="select_terminal" id="playTerminal" class="form-control" onchange="document.terminal_change.submit();">
-            <option value=0>Выберите</option>
-			[#begin LIST_TERMINAL#]
-            <option value="[#NAME#]"[#if NAME="<#PLAY_TERMINAL#>"#] selected[#endif#]>[#NAME#]</option>
-            [#end LIST_TERMINAL#]
-        </select>
-	</div>
-</div>
-</form>
 <p>
 <a href="?view_mode=edit_stations" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Добавить</a>
 <a href="?view_mode=import_stations" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Импорт</a>
