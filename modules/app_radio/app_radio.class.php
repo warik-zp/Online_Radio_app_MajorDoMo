@@ -346,22 +346,54 @@ class app_radio extends module {
         $tmp = LoadFile($file);
         $lines = mb_split("\n", $tmp);
         $total_lines = count($lines);
+        if (substr($lines[0],0,7) == "#EXTM3U") {
+          $plst_type = "m3u";
+        } elseif (substr($lines[0],0,10) == "[playlist]") {
+          $plst_type = "pls";
+        } else {
+          $plst_type = "raw";
+        }
         for ($i = 0; $i < $total_lines; $i++) {
-          $rec = array();
-          $rec_ok = 1;
-          list($rec['name'], $rec['stations']) = explode(";", $lines[$i]);
-          if ($rec['stations'] == '') {
-            $rec_ok = 0;
-          }
-          if ($rec_ok) {
-            $old = SQLSelectOne("SELECT ID FROM " . $table_name . " WHERE stations LIKE '" . DBSafe($rec['stations']) . "'");
-            if ($old['ID']) {
-              $rec['ID'] = $old['ID'];
-              SQLUpdate($table_name, $rec);
-            } else {
-              SQLInsert($table_name, $rec);
+          if ($plst_type == "m3u") {
+            if ($lines[$i] != "#EXTM3U") {
+              $sub = substr($lines[$i],0,8);
+              if ($sub == "#EXTINF:") {
+                $rec = array();
+                $rec_ok = 1;
+                $rec['name'] = mb_split(",", substr($lines[$i],8))[1];
+                $rec['stations'] = $lines[$i+1];
+                if ($rec['stations'] == '') {
+                  $rec_ok = 0;
+                }
+                if ($rec_ok) {
+                  $old = SQLSelectOne("SELECT ID FROM " . $table_name . " WHERE stations LIKE '" . DBSafe($rec['stations']) . "'");
+                  if ($old['ID']) {
+                    $rec['ID'] = $old['ID'];
+                    SQLUpdate($table_name, $rec);
+                  } else {
+                    SQLInsert($table_name, $rec);
+                  }
+                  $out["TOTAL"]++;
+                }
+              }
             }
-            $out["TOTAL"]++;
+          } elseif ($plst_type == "raw") {
+            $rec = array();
+            $rec_ok = 1;
+            list($rec['name'], $rec['stations']) = explode(";", $lines[$i]);
+            if ($rec['stations'] == '') {
+              $rec_ok = 0;
+            }
+            if ($rec_ok) {
+              $old = SQLSelectOne("SELECT ID FROM " . $table_name . " WHERE stations LIKE '" . DBSafe($rec['stations']) . "'");
+              if ($old['ID']) {
+                $rec['ID'] = $old['ID'];
+                SQLUpdate($table_name, $rec);
+              } else {
+                SQLInsert($table_name, $rec);
+              }
+              $out["TOTAL"]++;
+            }
           }
         }
       } else {
