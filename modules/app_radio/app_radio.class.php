@@ -130,14 +130,14 @@ class app_radio extends module {
     }
     if ($this->data_source == 'app_radio' || $this->data_source == '') {
       $out['VER'] = '1.3.2';
-      global $select_terminal;
-      if ($select_terminal != '')
-        setGlobal('RadioSetting.PlayTerminal', $select_terminal);
-      $out['PLAY_TERMINAL'] = getGlobal('RadioSetting.PlayTerminal');
-      $res = SQLSelect("SELECT NAME FROM terminals");
-      if ($res[0]) {
-        $out['LIST_TERMINAL'] = $res;
-      }
+      // global $select_terminal;
+      // if ($select_terminal != '')
+      //   setGlobal('RadioSetting.PlayTerminal', $select_terminal);
+      // $out['PLAY_TERMINAL'] = getGlobal('RadioSetting.PlayTerminal');
+      // $res = SQLSelect("SELECT NAME FROM terminals");
+      // if ($res[0]) {
+      //   $out['LIST_TERMINAL'] = $res;
+      // }
       if ($this->view_mode == '' || $this->view_mode == 'view_stations') {
         $this->view_stations($out);
       }
@@ -163,6 +163,15 @@ class app_radio extends module {
 */
   function usual(&$out)
   {
+    global $select_terminal;
+    if ($select_terminal != '')
+      setGlobal('RadioSetting.PlayTerminal', $select_terminal);
+    $out['PLAY_TERMINAL'] = getGlobal('RadioSetting.PlayTerminal');
+    $res = SQLSelect("SELECT NAME,PLAYER_TYPE FROM terminals");
+    if ($res[0]) {
+      $out['LIST_TERMINAL'] = $res;
+    }
+
     $this->view_stations($out);
     $current_volume = getGlobal('RadioSetting.VolumeLevel');
     $last_stationID = getGlobal('RadioSetting.LastStationID');

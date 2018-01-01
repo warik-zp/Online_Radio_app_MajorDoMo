@@ -4,8 +4,8 @@
 	overflow:hidden;
 	margin-right:0px;
 	text-shadow:0 1px 0 #000000;
-	height:338px;
-	
+	height:398px;
+
 	color:#999999;
 }
 
@@ -35,7 +35,6 @@
 	padding-top: 4px;
 }
 
-
 .full-width-slider input {
     display: none;
 }
@@ -47,7 +46,7 @@
 
 ul {
 	list-style-type: none;
-	margin: 0; 
+	margin: 0;
 	padding: 0;
 	overflow:auto;
 }
@@ -60,7 +59,7 @@ ul#stations li a{
     display: block;
     padding: 3px 10px;
     white-space: nowrap;
-	text-shadow: 0 0 3px rgba(255, 255, 255, 0.2); 
+	text-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
 	text-decoration: none;
 	height: 20px;
 }
@@ -70,16 +69,21 @@ ul#stations li a:hover{
     border-bottom: 1px solid #222222;
     border-top: 1px solid #777777;
 	height: 20px;
-	color: White; 
+	color: White;
 }
 
 ul#stations li a span{
-	font-size: 12px; 
+	font-size: 12px;
 	padding: 3px 0 0 2px;
 	display: block;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: lighter;
+}
+
+select {
+	background: #404040;
+	color: #ffffff;
 }
 
 img:hover {
@@ -111,15 +115,16 @@ function command(cmd,id) {
 	else
 		url+='&s_id='+id;
   }
+	console.log(url);
   AJAXRequest(url, '', '');
   return false;
 }
 
-function Volume() {    
+function Volume() {
   if (this.sliderTimeour) clearTimeout(this.sliderTimeour);
   this.sliderTimeour = setTimeout(function(){
     command('vol');
-	
+
 	//alert('Vol');
   },30);
 };
@@ -132,7 +137,7 @@ function Volume() {
 
 	<div class="station">
 		<ul id="stations">
-		[#if RESULT#] 
+		[#if RESULT#]
 
 		[#begin RESULT#]
 			<li><a href="#" id=[#ID#] [#if SELECT#]class=station_select[#endif SELECT#] onClick='command("play",[#ID#]);'><span>
@@ -148,6 +153,17 @@ function Volume() {
 
 		</ul>
 	</div>
+
+	<form action="?" method="get" class="form-horizontal" name="terminal_change">
+		<div>
+			<select name="select_terminal" id="playTerminal" class="form-control" onchange="document.terminal_change.submit();">
+				[#begin LIST_TERMINAL#]
+					<option value="[#NAME#]"[#if NAME="<#PLAY_TERMINAL#>"#] selected[#endif#]>[#NAME#]</option>
+				[#end LIST_TERMINAL#]
+			</select>
+		</div>
+	</form>
+
 	<div class="control">
 		<div style="float:left;width:35px;height:35px;text-align:center"><a href="#" onClick='command("play");'><img src="/templates/app_radio/img/play.png"></a></div>
 		<div style="float:left;width:45px;height:45px;text-align:center;padding-left:3%;"><a href="#" onClick='command("stop");'><img src="/templates/app_radio/img/stop.png"></a></div>
@@ -156,15 +172,13 @@ function Volume() {
 				<input type="range" id="volume" value="[#VOLUME#]" min="0" max="100" step="1"  onChange="Volume();"/>
 			</form>
 		</div>
-
-
 	</div>
 </div>
 
 <script language="javascript">
- $('#stations a').click(function(event){
- $('#stations .station_select').removeClass('station_select');
- $(this).addClass('station_select');
- event.preventDefault()
- })
+	$('#stations a').click(function(event){
+		$('#stations .station_select').removeClass('station_select');
+		$(this).addClass('station_select');
+		event.preventDefault()
+	})
 </script>
