@@ -38,11 +38,10 @@
 </fieldset>
 
 [#if TOTAL#]
-<div class="alert alert-success"><#LANG_STRING_SUCCESS#></div>
-<div class="alert alert-success">Всего импортировано: [#TOTAL#]</div>
+	<div class="alert alert-success"><#LANG_STRING_SUCCESS#> Всего импортировано: [#TOTAL#]</div>
 [#endif TOTAL#]
 
 [#if ERR#]
-<div class="alert alert-danger"><#LANG_FILLOUT_REQURED#></div>
+	<div class="alert alert-danger"><#LANG_FILLOUT_REQURED#></div>
 [#endif ERR#]
 </form>
