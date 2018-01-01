@@ -1,34 +1,48 @@
 <form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
 
-[#if ERR#]
-<div class="alert alert-danger"><#LANG_FILLOUT_REQURED#></div>
-[#endif ERR#]
 <fieldset>
+	<h2><small>Импорт плейлиста</small></h2>
+	<div class="form-group">
+		<label for="inputFile">Плейлист:</label>
+		<div >
+			<input type="file" name="file" id="inputFile" class="[#if ERR#]alert-danger[#endif#]">
+		</div>
+		<span class="help-block"><br>Форматы импортируемых плейлистов: M3U, RAW.<br>
+			<b>M3U</b> - Стандартный m3u плейлист.
+			<details>
+				<summary><u>Вид файла:</u></summary><br>
+				#EXTM3U<br>
+				#EXTINF:-1,Station 1<br>
+				http://123.123.123.123:123/stream<br>
+				#EXTINF:-1,Station 2<br>
+				http://321.321.321.321:321/stream
+			</details><br>
 
-<h2><small>Импорт списка станций</small></h2>
+			<b>RAW</b> - Плейлист в raw (сыром) формате. Синтаксис: "Название станции;URL станции". Каждая запись с новой строки.<br>
+			<details>
+				<summary><u>Вид файла:</u></summary><br>
+					Station 1;http://123.123.123.123:123/stream<br>
+					Station 2;http://321.321.321.321:321/stream
+			</details><br>
+		</span>
+	</div>
+
+	<div class="form-group">
+		<button type="submit" name="subm" value="Add" class="btn btn-primary"><#LANG_ADD#></button>
+		<a href="?" class="btn btn-default"><#LANG_CANCEL#></a>
+		<input type="hidden" name="id" value="<#ID#>">
+		<input type="hidden" name="view_mode" value="<#VIEW_MODE#>">
+		<input type="hidden" name="edit_mode" value="<#EDIT_MODE#>">
+		<input type="hidden" name="mode" value="update">
+	</div>
+</fieldset>
+
 [#if TOTAL#]
 <div class="alert alert-success"><#LANG_STRING_SUCCESS#></div>
 <div class="alert alert-success">Всего импортировано: [#TOTAL#]</div>
 [#endif TOTAL#]
 
-<div class="form-group">
-	<label for="inputFile">Фаил со списком:</label>
-	<div >
-	<input type="file" name="file" id="inputFile" class="[#if ERR#]alert-danger[#endif#]">
-	</div>
-	<span class="help-block">Формат файла (TXT, unicode. Название станции;URL станции <= каждая запись с новой строки):<br>
-		Зайцев.FM;http://radio.zaycev.fm:9002/ZaycevFM(128)<br>
-		Di.FM;http://pub4.di.fm:80/di_classiceurodance
-	</span>
-</div>
-
-<div class="form-group">
- <button type="submit" name="subm" value="Add" class="btn btn-primary"><#LANG_ADD#></button>
- <a href="?" class="btn btn-default"><#LANG_CANCEL#></a>
-<input type="hidden" name="id" value="<#ID#>">
-<input type="hidden" name="view_mode" value="<#VIEW_MODE#>">
-<input type="hidden" name="edit_mode" value="<#EDIT_MODE#>">
-<input type="hidden" name="mode" value="update">
-</div>
-</fieldset>
+[#if ERR#]
+<div class="alert alert-danger"><#LANG_FILLOUT_REQURED#></div>
+[#endif ERR#]
 </form>
